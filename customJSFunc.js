@@ -48,3 +48,46 @@
             })
         })
         .then(console.log);
+
+    // 2.自定义封装自动执行迭代器函数,参考地址：https://juejin.cn/post/6844904102053281806
+    function asyncToGenerator (generatorFunc) {
+        return function() {
+            const gen = generatorFunc.apply(this, arguments);
+            return new Promise((resolve, reject) => {
+                function step (key, arg) {
+                    let generatorResult;
+
+                    try {
+                        generatorResult = gen[key](arg);
+                    } catch (error) {
+                        reject(error);
+                    }
+                    const { value, done } = generatorResult;
+                    if(done) {
+                        return resolve(value);
+                    } else {
+                        return Promise.resolve(value).then(res => step('next', res), err => step('throw', err));
+                    }
+                    
+                }
+                step('next')
+            })
+        }
+    }
+    // 2调用实例
+    function* testG () {
+        const data = yield getData();
+        console.log('data: ', data);
+        const data2 = yield getData();
+        console.log('data2: ', data2 + '2');
+        return 'success'
+    }
+    const getData = () => {
+       return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve('data')
+            }, 1000)
+        })
+    }
+    const testGAsync = asyncToGenerator(testG)
+    testGAsync().then((resule) => console.log(resule))
