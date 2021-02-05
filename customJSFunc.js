@@ -75,6 +75,11 @@
         }
     }
     // 2调用实例
+        /**
+         * async的执行原理
+         * 其实就是自动执行generator函数
+         * 暂时不考虑genertor的编译步骤（更复杂）
+         */
     function* testG () {
         const data = yield getData();
         console.log('data: ', data);
