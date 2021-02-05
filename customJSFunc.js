@@ -1,6 +1,6 @@
-// 这是一个自定义封装js对象 文件,参考地址：https://juejin.cn/post/6844904094079926286
+// 这是一个自定义封装js对象 文件
 
-    // 1.自定义封装 Promise
+    // 1.自定义封装 Promise,参考地址：https://juejin.cn/post/6844904094079926286
     function Promise (fn) {
         this.cbs = [];
 
