@@ -1,7 +1,7 @@
 /*
- * @Author: your name
+ * @Author: daping
  * @Date: 2021-02-25 14:52:12
- * @LastEditTime: 2021-02-25 15:04:22
+ * @LastEditTime: 2021-02-25 16:39:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \undefinedd:\github\suanfa.js
@@ -26,4 +26,52 @@ const climbStairs = function (n) {
     }
 
     return n <= 0 ? 0 : arr[n-1]
+}
+
+/**
+ * @description: 二分排序
+ * @param {*} arr
+ * @return {*}
+ */
+const dichotomySort = function (arr) {
+    if (arr <= 1) {
+        return arr
+    }
+
+    var leftArr = [];
+    var rightArr = [];
+    var randomVal = arr[0];
+
+    for (let i = 1, len = arr.length; i < len; i++) {
+        if (arr[i] < randomVal) {
+            leftArr.push(arr[i])
+        } else {
+            rightArr.push(arr[i])
+        }
+    }
+
+    return [].concat(dichotomySort(leftArr), [randomVal], dichotomySort(rightArr))
+}
+
+/**
+ * @description: 冒泡排序
+ * @param {*} arr
+ * @return {*}
+ */
+const bubbleSort = function (arr) {
+    if (arr.length == 1) {
+        return arr
+    }
+
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = i + 1; j < arr.length; j++) {
+            if (arr[i] > arr[j]) {
+                var n = arr[i]
+                arr[i] = arr[j]
+                arr[j] = n;
+            }
+        }
+    }
+
+    return arr
 }
