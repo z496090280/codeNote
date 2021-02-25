@@ -49,7 +49,7 @@
         })
         .then(console.log);
 
-    // 2.自定义封装自动执行迭代器函数,参考地址：https://juejin.cn/post/6844904102053281806
+    // 2.自定义封装async await,参考地址：https://juejin.cn/post/6844904102053281806
     function asyncToGenerator (generatorFunc) {
         return function() {
             const gen = generatorFunc.apply(this, arguments);
