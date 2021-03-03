@@ -1,7 +1,7 @@
 /*
  * @Author: daping
  * @Date: 2021-02-25 14:52:12
- * @LastEditTime: 2021-02-25 16:39:51
+ * @LastEditTime: 2021-03-03 11:05:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \undefinedd:\github\suanfa.js
@@ -74,4 +74,25 @@ const bubbleSort = function (arr) {
     }
 
     return arr
+}
+
+/**
+ * @description: 两数之和
+ * 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那两个整数
+ * 并返回他们的数组下标。
+ * 思路：创建一个键值对对象，key为差值，value为索引，用减法得出
+ * @param {*} arr 所需数组
+ * @param {*} target 合值
+ * @return {*}
+ */
+const twoSum = function (arr, target) {
+    let maps = {};
+
+    for(let i=0; i<arr.length; i++) {
+        if(maps[target - arr[i]] !== undefined) {
+            return [maps[target - arr[i]], i]
+        }
+
+        maps[arr[i]] = i;
+    }
 }
