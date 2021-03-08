@@ -1,7 +1,7 @@
 /*
  * @Author: daping
  * @Date: 2021-02-25 14:52:12
- * @LastEditTime: 2021-03-03 11:05:53
+ * @LastEditTime: 2021-03-08 22:35:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \undefinedd:\github\suanfa.js
@@ -95,4 +95,49 @@ const twoSum = function (arr, target) {
 
         maps[arr[i]] = i;
     }
+}
+
+/**
+ * @description: 给定一个只包括 ‘(’，’)’，’{’，’}’，’[’，’]’ 的字符串，判断字符串是否有效。
+有效字符串需满足：
+左括号必须用相同类型的右括号闭合。
+左括号必须以正确的顺序闭合。
+ * @param {*} s 是有效括号字符串
+ * @return {*} 布尔值
+ */
+const isValid = function (s) {
+    let items = [];
+    let len = s.length;
+
+    let lastVal;
+
+    if(len%2 != 0) {
+        return false
+    }
+
+    for(let i=0; i<len; i++) {
+        lastVal = items[items.length - 1];
+        
+        switch(s[i]){
+            case '(':
+                items.push('(')
+                break
+            case '[':
+                items.push('[')
+                break
+            case '{':
+                items.push('{')
+                break
+            case ')':
+                if(lastVal == '(') items.pop()
+                break
+            case ']':
+                if(lastVal == '[') items.pop()
+                break
+            case '}':
+                if(lastVal == '{') items.pop()
+                break
+        }
+    }
+    return items.length == 0
 }
