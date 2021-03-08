@@ -1,7 +1,7 @@
 /*
  * @Author: daping
  * @Date: 2021-02-25 14:52:12
- * @LastEditTime: 2021-03-08 22:35:15
+ * @LastEditTime: 2021-03-08 23:35:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \undefinedd:\github\suanfa.js
@@ -140,4 +140,45 @@ const isValid = function (s) {
         }
     }
     return items.length == 0
+}
+
+/**
+ * @description: 小孩报数问题
+ * 有30个小孩儿，编号从1-30，围成一圈依此报数，1、2、3 数到 3 的小孩儿退出这个圈， 
+ * 然后下一个小孩 重新报数 1、2、3，问最后剩下的那个小孩儿的编号是多少?
+ * @param {*} n 总数
+ * @param {*} count 第多少个出列
+ * @return {*}
+ */
+const childNum = function (n, count) {
+    let num = n; // 总人数
+    const countNum = count; //计数方式
+
+    let arrChild = [];
+
+    for(let i=0; i<num; i++) arrChild[i] = i+1
+
+    let exitCount = 0; // 离开总人数
+    let counter = 0; // 目前是第几个
+    let currentIdx = 0; // 当前下标
+
+    while (exitCount < num-1) {
+        if (arrChild[currentIdx] != 0) counter++
+
+        if(counter == countNum) {
+            console.log(arrChild[currentIdx] + '出列')
+            arrChild[currentIdx] = 0;
+            exitCount++
+            counter = 0
+        }
+
+        currentIdx++
+        if(currentIdx == num) currentIdx = 0;
+    }
+
+    for(let j=0; j<num; j++){
+        if(arrChild[j] != 0) {
+            return arrChild[j]
+        }
+    }
 }
