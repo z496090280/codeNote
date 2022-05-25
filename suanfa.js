@@ -1,7 +1,7 @@
 /*
  * @Author: daping
  * @Date: 2021-02-25 14:52:12
- * @LastEditTime: 2022-05-25 22:00:16
+ * @LastEditTime: 2022-05-25 22:21:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \undefinedd:\github\suanfa.js
@@ -229,13 +229,9 @@ const arrToTree2 = (data, result, pid) => {
       arrToTree2(data, newItem.children, item.id)
     }
   }
-}
-function handleFunc(data, pid) {
-  const res = []
-  arrToTree2(data, res, pid)
-  return res
-}
 
+  return result
+}
 let arrToTreeData = [
   { id: 1, name: '部门1', pid: 0 },
   { id: 2, name: '部门2', pid: 1 },
