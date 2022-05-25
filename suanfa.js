@@ -1,7 +1,7 @@
 /*
  * @Author: daping
  * @Date: 2021-02-25 14:52:12
- * @LastEditTime: 2022-05-25 21:11:40
+ * @LastEditTime: 2022-05-25 22:00:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \undefinedd:\github\suanfa.js
@@ -184,7 +184,7 @@ const childNum = function (n, count) {
 }
 
 /**
- * @description: 数组转tree
+ * @description: 数组转tree，最优解
  * @param {*} data 所需array
  * @param {*} rootPid 根id
  * @return {*}
@@ -216,6 +216,26 @@ const arrToTree = (data, rootPid) => {
 
   return result
 }
+
+/**
+ * @description: 递归实现数组转tree
+ * @return {*}
+ */
+const arrToTree2 = (data, result, pid) => {
+  for (const item of data) {
+    if (item.pid == pid) {
+      const newItem = { ...item, children: [] }
+      result.push(newItem)
+      arrToTree2(data, newItem.children, item.id)
+    }
+  }
+}
+function handleFunc(data, pid) {
+  const res = []
+  arrToTree2(data, res, pid)
+  return res
+}
+
 let arrToTreeData = [
   { id: 1, name: '部门1', pid: 0 },
   { id: 2, name: '部门2', pid: 1 },
