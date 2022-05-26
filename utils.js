@@ -1,7 +1,7 @@
 /*
  * @Author: daping
  * @Date: 2021-02-25 10:24:30
- * @LastEditTime: 2021-02-25 11:09:09
+ * @LastEditTime: 2022-05-26 13:25:40
  * @LastEditors: Please set LastEditors
  * @Description: 函数工具类
  * @FilePath: \undefinedd:\github\utils.js
@@ -62,3 +62,43 @@ const throttle = function (fn, delayed, immediate) {
         }
     }
 }
+
+/**
+ * @description: 页面多请求优化最大并发数
+ * @param {*} urls
+ * @param {*} maxNum 最大并发数
+ * @return {*}
+ */
+function multiRequest(urls, maxNum = 5) {
+  let count = 0
+  let len = urls.length
+  let result = new Array(len).fill(false)
+  return new Promise((resolve, reject) => {
+    while(count < maxNum) {
+      task()
+    }
+    function task() {
+      let idx = count++
+      let url = urls[idx]
+      console.log(result)
+      if(idx >= len) {
+        !result.includes(false) && resolve(result)
+        return
+      }
+      console.log(`第${idx}个请求开始`)
+      fetch(url).then(res => res.json()).then(res => {
+        console.log(`第${idx}个请求结束`)
+        result[idx] = res
+        if(idx < len) task()
+      }).catch(err => {
+        result[idx] = err
+        if(idx < len) task()
+      })
+    }
+  })
+}
+
+let urlArr = new Array(10).fill('https://tenapi.cn/bilibili/?uid=1')
+multiRequest(urlArr, 5).then(res => {
+  console.log(res)
+})
