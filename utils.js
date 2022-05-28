@@ -1,7 +1,7 @@
 /*
  * @Author: daping
  * @Date: 2021-02-25 10:24:30
- * @LastEditTime: 2022-05-26 13:51:55
+ * @LastEditTime: 2022-05-28 18:44:00
  * @LastEditors: Please set LastEditors
  * @Description: 函数工具类
  * @FilePath: \undefinedd:\github\utils.js
@@ -102,3 +102,33 @@ let urlArr = new Array(10).fill('https://tenapi.cn/bilibili/?uid=1')
 multiRequest(urlArr, 5).then(res => {
   console.log(res)
 })
+
+/**
+ * @description: 深拷贝
+ * @param {*} obj 拷贝对象
+ * @return {*} 返回对象
+ */
+function deepClone(obj) {
+  let result
+  if (typeof obj === 'object') {
+    result = Array.isArray(obj) ? [] : {}
+    for (let key in obj) {
+      result[key] = deepClone(obj[key])
+    }
+  } else {
+    result = obj
+  }
+  return result
+}
+
+let objDeepClone = {
+  a: 1,
+  b: {
+    name: 'daping',
+    age: 18
+  }
+}
+
+let objDeepClone2 = deepClone(objDeepClone)
+objDeepClone2.b.name = 'daping2'
+console.log(objDeepClone)
