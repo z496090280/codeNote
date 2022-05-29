@@ -1,7 +1,7 @@
 /*
  * @Author: daping
  * @Date: 2021-02-25 10:24:30
- * @LastEditTime: 2022-05-28 18:44:00
+ * @LastEditTime: 2022-05-29 23:34:33
  * @LastEditors: Please set LastEditors
  * @Description: 函数工具类
  * @FilePath: \undefinedd:\github\utils.js
@@ -132,3 +132,41 @@ let objDeepClone = {
 let objDeepClone2 = deepClone(objDeepClone)
 objDeepClone2.b.name = 'daping2'
 console.log(objDeepClone)
+
+// 固定参数柯里化
+function curry(fn, ...args) {
+  return fn.length <= args.length ? fn(...args) : (_args) => curry(fn, ...args, _args)
+}
+
+function add(a, b, c) {
+  return a + b + c
+}
+
+let sum = curry(add)
+console.log(sum(1)(2)(3)(4))
+
+// 非固定参数柯里化
+function currying(fn) {
+  let args = []
+  return function temp(..._args) {
+    if(_args.length) {
+      args = args.concat(_args)
+      return temp
+    } else {
+      let val = fn.apply(this, args)
+      args = []
+      return val
+    }
+  }
+}
+function add1(...args){
+  return args.reduce((a, b) =>{
+    a += b  
+    return a
+  }, 0)
+}
+let sum1 = currying(add1)
+// console.log(sum1(1)(2)(3)(4)())
+// console.log(sum1(1,5,8)(2)(3)(4)())
+console.log(sum1(1,5,8)(2,7)(3)(4)())
+
