@@ -1,7 +1,7 @@
 /*
  * @Author: daping
  * @Date: 2021-02-25 14:52:12
- * @LastEditTime: 2022-05-25 22:21:27
+ * @LastEditTime: 2022-05-31 22:28:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \undefinedd:\github\suanfa.js
@@ -240,3 +240,40 @@ let arrToTreeData = [
   { id: 5, name: '部门5', pid: 4 },
 ]
 arrToTree(arrToTreeData, 0)
+
+// 大数相加
+function bigSumAdd(str1, str2) {
+  let str1Arr = str1.split(''), str2Arr = str2.split('');
+  let len1 = str1Arr.length, len2 = str2Arr.length;
+  let maxLen = Math.max(len1, len2);
+  let flag = false;
+  let res = []
+
+  for(let i=0; i<maxLen; i++) {
+    let temp
+    let s1 = str1Arr.pop(), s2 = str2Arr.pop();
+    s1 = s1 ? s1 : 0, s2 = s2 ? s2 : 0;
+    // 如果为真，则说明有进位
+    if(flag) {
+      temp = parseInt(s1) + parseInt(s2) + 1;
+    } else {
+      temp = parseInt(s1) + parseInt(s2);
+    }
+
+    if(parseInt(temp/10) > 0) {
+      flag = true;
+      res.push(temp%10)
+    } else {
+      flag = false;
+      res.push(temp)
+    }
+
+    // 最后一次且有进位则直接添加1
+    if(i == maxLen-1 && flag) {
+      res.push(1)
+    }
+  }
+
+  return res.reverse().join('')
+}
+bigSumAdd('987654321111234', '99900334444')
