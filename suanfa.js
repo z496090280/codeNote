@@ -1,7 +1,7 @@
 /*
  * @Author: daping
  * @Date: 2021-02-25 14:52:12
- * @LastEditTime: 2022-05-31 22:28:27
+ * @LastEditTime: 2022-06-07 20:59:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \undefinedd:\github\suanfa.js
@@ -249,27 +249,27 @@ function bigSumAdd(str1, str2) {
   let flag = false;
   let res = []
 
-  for(let i=0; i<maxLen; i++) {
+  for (let i = 0; i < maxLen; i++) {
     let temp
     let s1 = str1Arr.pop(), s2 = str2Arr.pop();
     s1 = s1 ? s1 : 0, s2 = s2 ? s2 : 0;
     // 如果为真，则说明有进位
-    if(flag) {
+    if (flag) {
       temp = parseInt(s1) + parseInt(s2) + 1;
     } else {
       temp = parseInt(s1) + parseInt(s2);
     }
 
-    if(parseInt(temp/10) > 0) {
+    if (parseInt(temp / 10) > 0) {
       flag = true;
-      res.push(temp%10)
+      res.push(temp % 10)
     } else {
       flag = false;
       res.push(temp)
     }
 
     // 最后一次且有进位则直接添加1
-    if(i == maxLen-1 && flag) {
+    if (i == maxLen - 1 && flag) {
       res.push(1)
     }
   }
@@ -277,3 +277,41 @@ function bigSumAdd(str1, str2) {
   return res.reverse().join('')
 }
 bigSumAdd('987654321111234', '99900334444')
+
+/**
+ * @description: 从数组随机拿一个数，每次不重样
+ * @param {*} arr
+ * @return {*}
+ */
+function arrByitem(arr) {
+  let res = [];
+
+  return function temp() {
+    let n, rlen = -1
+    let r = Math.floor(Math.random() * arr.length);
+    for (let i = 0; i < arr.length; i++) {
+      if (res.indexOf(arr[r]) == -1) {
+        n = arr[r]
+        res.push(arr[r]);
+        arr.splice(r, 1);
+        rlen = res.length
+
+        break
+      }
+    }
+    console.log(res, arr)
+    // 如果未做删除，则重新调用
+    if (rlen != res.length) {
+      // 如取出值全部存在，则结束
+      if (arr.every(item => res.includes(item))) return
+      return temp()
+    } else {
+      return n
+    }
+  }
+}
+
+let arrByitemArr = [1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4]
+
+let arrByitemhandle = arrByitem(arrByitemArr)
+arrByitemhandle()
