@@ -1,7 +1,7 @@
 /*
  * @Author: daping
  * @Date: 2021-02-25 14:52:12
- * @LastEditTime: 2022-06-13 14:04:39
+ * @LastEditTime: 2022-06-13 16:05:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \undefinedd:\github\suanfa.js
@@ -343,3 +343,18 @@ let deepArrayArr = [1, 2, 3, [4, 5, [6, 7, [8, 9]]]]
 let deepArrayArr1= [1, 2, 3, [4,5,6,[7,[8,9,[10]]]]]
 console.log(deepArray(deepArrayArr))
 console.log(deepArray(deepArrayArr1))
+
+function flattenArray(arr) {
+  let result = []
+  for (let i = 0; i < arr.length; i++) {
+    if(Array.isArray(arr[i])){
+      result = result.concat(flattenArray(arr[i]))
+    } else {
+      result.push(arr[i])
+    }
+  }
+
+  return result
+}
+let flattenArrayArr = [1, 2, 3, [4, 5, [6, 7, [8, 9]]]]
+console.log(flattenArray(flattenArrayArr))

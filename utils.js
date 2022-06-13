@@ -1,7 +1,7 @@
 /*
  * @Author: daping
  * @Date: 2021-02-25 10:24:30
- * @LastEditTime: 2022-06-12 15:35:24
+ * @LastEditTime: 2022-06-13 21:47:54
  * @LastEditors: Please set LastEditors
  * @Description: 函数工具类
  * @FilePath: \undefinedd:\github\utils.js
@@ -182,4 +182,18 @@ function getUrlParams() {
 }
 
 const urlParams = getUrlParams()
+
+/**
+ * @description: 数组去重
+ * @param {*} arr
+ * @return {*}
+ */
+function uniqueArray(arr) {
+  let result = []
+   result = arr.filter((item, index) => arr.indexOf(item) === index)
+  //  debugger
+   return result
+}
+let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+console.log(uniqueArray(arr))
 
