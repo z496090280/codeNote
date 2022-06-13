@@ -1,7 +1,7 @@
 /*
  * @Author: daping
  * @Date: 2021-02-25 10:24:30
- * @LastEditTime: 2022-05-29 23:34:33
+ * @LastEditTime: 2022-06-12 15:35:24
  * @LastEditors: Please set LastEditors
  * @Description: 函数工具类
  * @FilePath: \undefinedd:\github\utils.js
@@ -149,7 +149,7 @@ console.log(sum(1)(2)(3)(4))
 function currying(fn) {
   let args = []
   return function temp(..._args) {
-    if(_args.length) {
+    if (_args.length) {
       args = args.concat(_args)
       return temp
     } else {
@@ -159,14 +159,27 @@ function currying(fn) {
     }
   }
 }
-function add1(...args){
-  return args.reduce((a, b) =>{
-    a += b  
+function add1(...args) {
+  return args.reduce((a, b) => {
+    a += b
     return a
   }, 0)
 }
 let sum1 = currying(add1)
 // console.log(sum1(1)(2)(3)(4)())
 // console.log(sum1(1,5,8)(2)(3)(4)())
-console.log(sum1(1,5,8)(2,7)(3)(4)())
+console.log(sum1(1, 5, 8)(2, 7)(3)(4)())
+
+/**
+ * @description: 返回一个获取url参数的对象
+ * @return {*}
+ */
+function getUrlParams() {
+  let urlParams = new URLSearchParams(window.location.search)
+  let result = Object.fromEntries(urlParams.entries())
+
+  return result
+}
+
+const urlParams = getUrlParams()
 

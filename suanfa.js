@@ -1,7 +1,7 @@
 /*
  * @Author: daping
  * @Date: 2021-02-25 14:52:12
- * @LastEditTime: 2022-06-07 20:59:53
+ * @LastEditTime: 2022-06-13 14:04:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \undefinedd:\github\suanfa.js
@@ -202,15 +202,22 @@ const arrToTree = (data, rootPid) => {
         children: []
       }
     }
+    itemMaps[id] = {
+      ...item,
+      children: itemMaps[id]['children']
+    }
 
     const itemTree = itemMaps[id]
 
     if (pid == rootPid) {
       result.push(itemTree)
     } else {
-      if (itemMaps[pid]) {
-        itemMaps[pid].children.push(itemTree)
+      if (!itemMaps[pid]) {
+        itemMaps[pid] = {
+          children: []
+        }
       }
+      itemMaps[pid].children.push(itemTree)
     }
   }
 
@@ -233,11 +240,11 @@ const arrToTree2 = (data, result, pid) => {
   return result
 }
 let arrToTreeData = [
-  { id: 1, name: '部门1', pid: 0 },
+  { id: 5, name: '部门5', pid: 4 },
   { id: 2, name: '部门2', pid: 1 },
   { id: 3, name: '部门3', pid: 1 },
   { id: 4, name: '部门4', pid: 3 },
-  { id: 5, name: '部门5', pid: 4 },
+  { id: 1, name: '部门1', pid: 0 },
 ]
 arrToTree(arrToTreeData, 0)
 
@@ -315,3 +322,24 @@ let arrByitemArr = [1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4]
 
 let arrByitemhandle = arrByitem(arrByitemArr)
 arrByitemhandle()
+
+/**
+ * @description: 数组深度
+ * @param {*} arr
+ * @param {*} res
+ * @return {*}
+ */
+function deepArray(arr, res = []){
+  for(let i = 0; i < arr.length; i++){
+    if(Array.isArray(arr[i])){
+      res.push(arr[i])
+      deepArray(arr[i], res)
+    }
+  }
+  console.log(res)
+  return res.length + 1
+}
+let deepArrayArr = [1, 2, 3, [4, 5, [6, 7, [8, 9]]]]
+let deepArrayArr1= [1, 2, 3, [4,5,6,[7,[8,9,[10]]]]]
+console.log(deepArray(deepArrayArr))
+console.log(deepArray(deepArrayArr1))
