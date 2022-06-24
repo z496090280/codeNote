@@ -101,8 +101,8 @@ function myInstanceof(obj, type) {
   let a = obj.__proto__;
   let b = type.prototype;
 
-  while(a !== null) {
-    if(a == b) return true
+  while (a !== null) {
+    if (a == b) return true
     a = a.__proto__
   }
   return false
